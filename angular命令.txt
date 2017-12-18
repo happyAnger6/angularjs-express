@@ -1,0 +1,66 @@
+1.创建对象
+angular.module(name, [requires], [configFn])
+
+name:模块名称。
+
+requires:供这个模块使用的模块名的数组, ng模块会自动被添加到每个实例化模块。
+依赖可以是模块，服务，以及在注入器服务中注册的任何其他对象。
+
+configFn:参数是在模块配置阶段调用的另一个函数。
+当一个模块被定义时，执行AngularJS模块配置阶段。在此阶段中，任何提供器都被注册到依赖注入器。你应该仅把配置和提供器代码放入配置块中。
+config(function([injectable,...]))
+injectable参数的典型值为提供器服务函数，如$provide.
+
+举例:
+var myModule = angular.module('myModule', []).
+ config(function($provide, $filterProvider){
+	$provide.value("startTime", new Date());
+	$filterProvider.register("myFilter", function(){});
+ });
+ 
+2.运行块
+run(function([injectable, ...]))
+injectable参数只应该是注入器的实例，因为配置已经完成
+
+myModule.run(function(startTime){
+	startTime.setTime((new Date()).getTime())
+});
+
+上面config节点所定义的startTime实例被传递到run()函数。这允许run()函数来把startTime提供器更新为一个新值.
+
+
+3.向模块添加提供器
+专门的AngularJS对象提供器
+var mod = angular.module('myMod', []);
+mod.controller('myController', function($scope) {
+	$scope.someValue = 'Some Value';
+	});
+
+
+服务提供器　
+提供器作为一个服务来提供功能。
+
+value
+constant
+factory　
+service
+provider
+
+
+4.实现依赖注入　
+一旦定义了模块和相应的提供器，就可以把该模块作为其他模块，控制器和其他各种AngularJS对象的依赖。
+需要设置依赖于提供器的对象的$inject属性值。
+
+5.实现2个模块的依赖注入
+var myMod = angular.module('myMod', []);
+myMod.value('modMsg', 'Hello from My Module.');
+myMod.controller('controllerB', ['$scope', 'modMsg', function($scope, msg){
+	$scope.message = msg;
+}]);　
+
+var myApp = angular.module('myApp', ['myMod']);
+myApp.value('appMsg', 'Hello from My App.');
+myApp.controller('controllerA', ['$scope', 'appMsg', function($scope, msg){
+	$scope.message = msg;
+}]);　
+
