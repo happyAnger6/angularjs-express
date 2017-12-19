@@ -1,0 +1,10 @@
+<div ng-controller="Characters">
+    <span ng-repeat="name in names" ng-click="changeName()">{{name}}<br></span>
+    <div ng-controller="Character">
+       <hr>
+        <label>Name: </label><p>{{currentName}}</p>
+        <label>Race: </label><p>{{currentInfo.race}}</p>
+        <label>Weapon: </label><p>{{currentInfo.weapon}}</p>
+        <span ng-click="deleteChar()">Delete</span>
+    </div>
+</div>

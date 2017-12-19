@@ -1,0 +1,20 @@
+<div ng-controller="LevelA">
+    <h3>{{title}}</h3>
+    ValueA = {{ValueA}} <br>
+    <input type="button" ng-click="inc()" value="+">
+    <div ng-controller="LevelB">
+        <hr>
+        <h3>{{title}}</h3>
+        ValueA = {{ValueA}}<br>
+        ValueB = {{ValueB}}<br>
+        <input type="button" ng-click="inc()" value="+">
+        <div ng-controller="LevelC">
+            <hr>
+            <h3>{{title}}</h3>
+            ValueA = {{ValueA}}<br>
+            ValueB = {{ValueB}}<br>
+            ValueC = {{ValueC}}<br>
+            <input type="button" ng-click="inc()" value="+">
+        </div>
+    </div>
+</div>

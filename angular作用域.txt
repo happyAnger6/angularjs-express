@@ -2,3 +2,28 @@
 
 应用程序启动时根作用域就创建了。可以使用$rootScope服务来访问它。
 根作用域内的数据应该在模块的run()块中进行初始化，但可以在模块组件中访问它。
+
+
+作用域生命周期
+１.创建阶段
+２.监视器注册阶段
+３.模型变化阶段
+４.变化观察阶段
+５.作用域销毁
+
+作用域层次结构
+
+
+发出和广播活动
+１.发出一个事件。　scope.$emit(name, [args, ...])
+２.广播。　scope.$broadcast(name, [args, ...])
+３.处理事件或广播。 scope.$on(name, listener)
+listener参数是一个函数，它可以接受事件作为第一个参数，并把由$emit()或$broadcast()方法传递的任何参数作为后续参数。
+event对象具有以下属性:
+a.targetScope
+b.currentScope
+c.name
+d.stopPropagation()
+e.preventDefault()
+f.defaultPrevented
+
