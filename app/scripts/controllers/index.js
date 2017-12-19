@@ -16,6 +16,10 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'Characters',
     templateUrl: '/views/changename.html'
     })
+    .when('/expressionScope', {
+        controller: 'expressionScope',
+        templateUrl: '/views/expressionscope.html'
+    })
     .otherwise({redirectTo:'/'});
 }]);
 
@@ -90,5 +94,19 @@ app.controller('Character', function($scope){
     $scope.deleteChar = function(){
         delete $scope.info[$scope.currentName];
         $scope.$emit('CharacterDeleted', $scope.currentName);
+    };
+});
+
+app.controller('expressionScope', function($scope){
+    $scope.first = 'Throin';
+    $scope.last = "Oakenshield";
+    $scope.newFirst = "Gandalf";
+    $scope.newLast = "Grehame";
+    $scope.combine = function(fName, lName){
+        return fName + ' ' + lName;
+    };
+    $scope.setName = function(fName, lName) {
+        $scope.first = fName;
+        $scope.last = lName;
     };
 });
