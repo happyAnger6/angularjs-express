@@ -35,7 +35,8 @@ var mod = angular.module('myMod', []);
 mod.controller('myController', function($scope) {
 	$scope.someValue = 'Some Value';
 	});
-
+controller方法把一个控制器注册为模块中的提供器，但它并没有创建该控制器的一个实例。实例的创建发生在ng-controller指令
+链接到AngularJS模板中时。
 
 服务提供器　
 提供器作为一个服务来提供功能。
@@ -63,4 +64,5 @@ myApp.value('appMsg', 'Hello from My App.');
 myApp.controller('controllerA', ['$scope', 'appMsg', function($scope, msg){
 	$scope.message = msg;
 }]);　
+
 
