@@ -4,6 +4,20 @@
 3.指令
 在编译期间,HTML标签和属性被规范化.
 
+表达式
 AngularJS模板表达式可以访问作用域,因此可以在表达式中对作用域进行更改。
 <span ng-click="msg='clicked'"></span>
 
+过滤器
+使用依赖注入添加过滤器
+controller('myController', ['$scope', 'currencyFilter', function($scope, currencyFilter){
+	$scope.getCurrencyValue = function(value){
+		return currencyFilter(value, "$USD");
+}]);
+
+自定义过滤器
+filter('myFilter', function(){
+	return function(input, param1, param2){
+		return <<modified input>>;
+	};
+});

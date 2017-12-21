@@ -20,6 +20,26 @@ app.config(['$routeProvider', function($routeProvider) {
         controller: 'expressionScope',
         templateUrl: '/views/expressionscope.html'
     })
+    .when('/filters', {
+        controller: 'filterController',
+        templateUrl: '/views/filters.html'
+    })
+    .when('/filterSort', {
+        controller: 'filterSortController',
+        templateUrl: '/views/filter_sort.html'
+    })
+    .when('/censorFilter', {
+        controller: 'censorController',
+        templateUrl: '/views/censorFilter.html'
+    })
+    .when('/formDirective', {
+        controller: 'formDirectiveController',
+        templateUrl: '/views/formDirective.html'
+    })
+    .when('/directiveBind', {
+        controller: 'directiveBindController',
+        templateUrl: '/views/directiveBind.html'
+    })
     .otherwise({redirectTo:'/'});
 }]);
 
@@ -109,4 +129,69 @@ app.controller('expressionScope', function($scope){
         $scope.first = fName;
         $scope.last = lName;
     };
+});
+
+app.controller('filterController', function($scope){
+    $scope.JSONobj = {title:"myTitle"};
+    $scope.word = "Supercalifragilisticexpialidocious";
+    $scope.days = ['Monday', 'TuesDay', 'Wednesday', 'Thursday', 'Friday'];
+});
+
+app.controller('filterSortController', ['$scope', 'filterFilter', function($scope, filterFilter){
+    $scope.cameras = [
+        {make:'Canon', model:'70D', mp:20.2},
+        {make:'Canon', model:'6D', mp:20},
+        {make:'Nikon', model:'D7100', mp:24.1},
+        {make:'Nikon', model:'D5200', mp:24.1},
+    ];
+    $scope.filteredCameras = $scope.cameras;
+    $scope.reverse = true;
+    $scope.column = 'make';
+    $scope.setSort = function(column){
+        $scope.column = column;
+        $scope.reverse = !$scope.reverse;
+    };
+    $scope.filterString='';
+    $scope.setFilter = function(value){
+        $scope.filteredCameras = filterFilter($scope.cameras, $scope.filterString);
+    };
+}]);
+
+app.filter('censor', function(){
+   return function(input, replacement){
+        var cWords = ['bad', 'evial', 'dark'];
+        var out = input;
+        for(var i = 0;i<cWords.length;i++){
+            out = out.replace(cWords[i], replacement);
+        }
+        return out;
+   };
+});
+
+app.controller("censorController", ['$scope', 'censorFilter', function($scope, censorFilter){
+   $scope.phrase = "This is a bad phase.";
+   $scope.txt = "Click to filter out dark and evil.";
+   $scope.filterText = function(){
+       $scope.txt = censorFilter($scope.txt, '<<censored>>');
+   }
+}]);
+
+app.controller('formDirectiveController', function($scope, filterFilter){
+    $scope.cameras = [
+        {make:'Canon', model:'70D', mp:20.2},
+        {make:'Canon', model:'6D', mp:20},
+        {make:'Nikon', model:'D7100', mp:24.1},
+        {make:'Nikon', model:'D5200', mp:24.1},
+    ];
+    $scope.cameraObj = $scope.cameras[0];
+    $scope.cameraName = 'Canon';
+    $scope.cbValue = '';
+    $scope.someText = '';
+});
+
+app.controller('directiveBindController', function($scope){
+  $scope.colors = ['red', 'green', 'blue'];
+  $scope.myStyle = {"background-color":'blue'};
+  $scope.days = ['Monday', 'Tuesday', 'Wednesday', 'Thursady', 'Friday'];
+  $scope.msg = "msg from the model";
 });

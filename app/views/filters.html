@@ -1,0 +1,11 @@
+<div ng-controller="filterController">
+    <h2>Basic Filters</h2>
+    Number: {{123.45678|number:3}}<br>
+    Currency: {{123.45678|currency:'$'}}<br>
+    Date: {{1389323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}<br>
+    JSON: {{JSONobj|json}}<br>
+    Limit Array: {{days|limitTo:3}}<br>
+    Limit String: {{word|limitTo:10}}<br>
+    Uppercase: {{word|uppercase|limitTo:10}}<br>
+    Lowercase: {{word|lowercase|limitTo:10}}<br>
+</div>
